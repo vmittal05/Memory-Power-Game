@@ -1,0 +1,18 @@
+/* canvas {
+    border-style: solid
+} */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+.icon{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap:wrap;
+}
+/* .bi {
+    display: inline-block;
+    flex-grow: 1;
+    height:100px;    
+    width: calc(100% * (1/4) - 10px - 1px)
+} */

@@ -1,1 +1,19 @@
-<p>game works!</p>
+<p class="h5 mx-5 my-2">Level: {{ level }}</p>
+<div class="container">
+  <div class="squareTile" *ngFor="let s of squares; let i = index">
+    <app-square
+      #grid
+      [data]="s"
+      [clickColor]="currColor"
+      (squareClicked)="squareClicked(i, $event)"
+    ></app-square>
+  </div>
+</div>
+<div class="icon mt-2">
+  <div class="life" *ngFor="let f of [].constructor(lives); let r = index">
+    <i class="bi bi-suit-heart-fill"></i>
+  </div>
+</div>
+
+<button class="btn btn-success mx-3 my-4" (click)="genSeq()">Start</button>
+<button class="btn btn-danger" (click)="reset()">Reset</button>

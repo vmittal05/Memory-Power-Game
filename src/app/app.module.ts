@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { GameComponent } from './game/game.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SquareComponent } from './square/square.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { GameComponent } from './game/game.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    GameComponent
+    GameComponent,
+    SquareComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
