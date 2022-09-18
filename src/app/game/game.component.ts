@@ -85,7 +85,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.genSeq();
     }
     console.log("UserSequence: ", this.userSeq)
-    if (this.level == 5) {
+    if (this.level == 6) {
       window.alert("You Win");
       this.reset();
     }
