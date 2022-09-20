@@ -24,8 +24,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   started: boolean = false;
   seqInd = 0;
   currColor = 'yellow';
-  colors =["yellow","red","blue","lime","olive","orange","black","teal","purple"];
-  colorInd=0;
+  colors = ["yellow", "red", "blue", "lime", "olive", "orange", "black", "teal", "purple"];
+  colorInd = 0;
   constructor(private router: Router, private changeDetector: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     // this.gridEl.forEach(div => div.onSquareClicked()
@@ -33,7 +33,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.gridEl.changes.subscribe(() => {
       console.log("DOM updated");
       this.gridArray = this.gridEl.toArray();
-      console.log(this.gridArray);
+      // console.log(this.gridArray);
     })
     this.gridArray = this.gridEl.toArray();
   }
@@ -52,39 +52,44 @@ export class GameComponent implements OnInit, AfterViewInit {
   squareClicked(index: number, event: SquareData): void {
 
     const squareInfo = this.squares[index];
-    console.log(index, event.color, event.state);
-    if (squareInfo.state === 'clicked') {
-      // squareInfo.state='clicked';
-      if (index !== this.compSeq[this.seqInd++]) {
-        window.alert("Wrong !");
-        this.lives--;
-        this.resetBoard();
-        if (this.lives == 0){
-          this.reset();
-          window.alert("You Lost !");
-          return;
+    // console.log(index, event.color, event.state);
+    if (this.compSeq.length > 0) {
+      if (squareInfo.state === 'clicked') {
+        // squareInfo.state='clicked';
+        if (index !== this.compSeq[this.seqInd++]) {
+          window.alert("Wrong !");
+          this.lives--;
+          this.resetBoard();
+          if (this.lives == 0) {
+            this.reset();
+            window.alert("You Lost !");
+            return;
+          }
+          this.genSeq();
         }
+        this.userSeq.push(index);
+      }
+      if (this.seqInd === this.compSeq.length) {
+        window.alert("Correct !");
+        this.resetBoard();
+        let obj: SquareData = {
+          color: 'white',
+          state: 'default'
+        }
+        this.row += 1;
+        this.level += 1;
+        this.colorInd = Math.floor(Math.random() * (this.colors.length));
+        this.currColor = this.colors[this.colorInd];
+        for (let i = 0; i < this.col; i++)
+          this.squares.push({ ...obj });
+
         this.genSeq();
       }
-      this.userSeq.push(index);
+    } else {
+      window.alert("Click on Start button to start the game !")
+      this.reset();
     }
-    if (this.seqInd === this.compSeq.length) {
-      window.alert("Correct !");
-      this.resetBoard();
-      let obj: SquareData = {
-        color: 'white',
-        state: 'default'
-      }
-      this.row += 1;
-      this.level += 1;
-      this.colorInd=Math.floor(Math.random() * (this.colors.length));
-      this.currColor=this.colors[this.colorInd];
-      for (let i = 0; i < this.col; i++)
-        this.squares.push({ ...obj });
-
-      this.genSeq();
-    }
-    console.log("UserSequence: ", this.userSeq)
+    // console.log("UserSequence: ", this.userSeq)
     if (this.level == 6) {
       window.alert("You Win");
       this.reset();
